@@ -18,3 +18,9 @@ keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>", opts)
 -- Indenting
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
+
+
+local api = vim.api
+-- Comments
+api.nvim_set_keymap("n", "<C-_>", "gtc", { noremap = false })
+api.nvim_set_keymap("v", "<C-_>", "goc", { noremap = false })

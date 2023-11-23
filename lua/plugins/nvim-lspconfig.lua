@@ -64,7 +64,7 @@ local config = function()
     capabilities = capabilities,
     settings = {
       gopls = {
-        analysis = {
+        analyses = {
           unusedparams = true,
           shadow = true,
         },

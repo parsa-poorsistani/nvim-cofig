@@ -24,3 +24,7 @@ local api = vim.api
 -- Comments
 api.nvim_set_keymap("n", "<C-_>", "gtc", { noremap = false })
 api.nvim_set_keymap("v", "<C-_>", "goc", { noremap = false })
+
+api.nvim_set_keymap('n', '<F7>', '<cmd>ToggleTerm direction=float<CR>', {noremap = true, silent = true})
+api.nvim_set_keymap('n', '<F8>', '<cmd>ToggleTerm size=10 direction=horizontal<CR>', {noremap = true, silent = true})
+api.nvim_set_keymap('n', '<F9>', '<cmd>ToggleTerm size=80 direction=vertical<CR>', {noremap = true, silent = true})

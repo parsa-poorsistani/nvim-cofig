@@ -34,6 +34,24 @@ local config = function()
 		},
 	})
 
+  -- YAML
+  lspconfig.yamlls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      yaml = {
+        schemas = {
+          kubernetes = "*.yaml",
+          -- Add other schemas as needed
+        },
+        validate = true,
+        hover = true,
+        completion = true,
+      },
+    },
+    filetypes = {"yaml", "yml"},
+  })
+
 	-- json
 	lspconfig.jsonls.setup({
 		capabilities = capabilities,
@@ -95,6 +113,14 @@ local config = function()
 		},
 	})
 
+  -- python --
+  lspconfig.pyright.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = {"python"},
+  })
+
+
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
 	local flake8 = require("efmls-configs.linters.flake8")
@@ -106,9 +132,18 @@ local config = function()
 	local shfmt = require("efmls-configs.formatters.shfmt")
 	local hadolint = require("efmls-configs.linters.hadolint")
 	local solhint = require("efmls-configs.linters.solhint")
-	local cpplint = require("efmls-configs.linters.cpplint")
+  --local cpplint = require("efmls-configs.linters.cpplint")
 	local clangformat = require("efmls-configs.formatters.clang_format")
+  local yaml_lint = {
+    lintCommand = 'yamllint -f parsable -',
+    lintStdin = true,
+    lintFormats = {'%f:%l:%c: %m'}
+  }
 
+  local prettier = {
+    formatCommand = 'prettier --stdin-filepath ${INPUT}',
+    formatStdin = true
+  }
 	-- configure efm server
 	lspconfig.efm.setup({
 		filetypes = {
@@ -122,6 +157,7 @@ local config = function()
 			"docker",
 			"c",
 			"cpp",
+      "yaml",
 		},
 		init_options = {
 			documentFormatting = true,
@@ -141,8 +177,9 @@ local config = function()
 				javascript = { eslint_d, prettier_d },
 				markdown = { prettier_d },
 				docker = { hadolint, prettier_d },
-				c = { clangformat, cpplint },
-				cpp = { clangformat, cpplint },
+				c = { clangformat },
+				cpp = { clangformat },
+        yaml = {yaml_lint, prettier},
 			},
 		},
 	})

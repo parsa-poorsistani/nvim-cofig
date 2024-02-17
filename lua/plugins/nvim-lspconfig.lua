@@ -34,6 +34,12 @@ local config = function()
 		},
 	})
 
+  --Docker-file
+  lspconfig.dockerls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { "/usr/local/bin/docker-langserver" }
+  })
   -- YAML
   lspconfig.yamlls.setup({
     on_attach = on_attach,

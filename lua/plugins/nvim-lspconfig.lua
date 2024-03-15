@@ -127,6 +127,34 @@ local config = function()
   })
 
 
+  -- Rust
+  lspconfig.rust_analyzer.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      ["rust_analyzer"] = {
+        autoimport = {
+          enable = true
+        },
+        cargo = {
+          loadOutDirsFromCheck = true
+        },
+        procMacro = {
+          enable = true
+        },
+        inlayHints = {
+          enable = true,
+          chainingHints = true,
+          parameterHints = true,
+          typeHints = true,
+        },
+        runnables = {
+          useCargoEnv = true
+        }
+      }
+    }
+  })
+
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
 	local flake8 = require("efmls-configs.linters.flake8")

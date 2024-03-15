@@ -8,6 +8,7 @@ local opts = {
 		"jsonls",
 		"clangd",
     "gopls",
+    "rust_analyzer",
   },
   automatic_installation = true,
 }

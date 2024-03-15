@@ -13,7 +13,7 @@ local config = function()
 
 	local capabilities = cmp_nvim_lsp.default_capabilities()
 
-	-- lua
+ -- lua
 	lspconfig.lua_ls.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -155,7 +155,14 @@ local config = function()
     }
   })
 
-	local luacheck = require("efmls-configs.linters.luacheck")
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.rs",
+    callback = function()
+      vim.lsp.buf.format({ async = false })
+    end,
+  })
+
+ 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
 	local flake8 = require("efmls-configs.linters.flake8")
 	local black = require("efmls-configs.formatters.black")

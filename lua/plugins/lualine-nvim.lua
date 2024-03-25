@@ -1,5 +1,5 @@
 local config = function()
-  local theme = require("lualine.themes.nightfox")
+  local theme = require("lualine.themes.kanagawa")
   theme.normal.c.bg = nil
 
   require('lualine').setup {

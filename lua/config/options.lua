@@ -31,3 +31,7 @@ opt.autochdir = false
 opt.clipboard:append("unnamedplus")
 opt.modifiable = true
 opt.encoding = "UTF-8"
+
+
+opt.foldmethod = "syntax"
+opt.foldlevel = 99

@@ -131,25 +131,29 @@ local config = function()
   lspconfig.rust_analyzer.setup({
     on_attach = on_attach,
     capabilities = capabilities,
+    filetypes = {"rust"},
     settings = {
       ["rust_analyzer"] = {
         autoimport = {
           enable = true
         },
         cargo = {
-          loadOutDirsFromCheck = true
+          loadOutDirsFromCheck = true,
+          allFeatures = true,
         },
         procMacro = {
           enable = true
         },
         inlayHints = {
+          auto = true,
           enable = true,
           chainingHints = true,
           parameterHints = true,
           typeHints = true,
         },
         runnables = {
-          useCargoEnv = true
+          useCargoEnv = true,
+          use_telescope = true,
         }
       }
     }

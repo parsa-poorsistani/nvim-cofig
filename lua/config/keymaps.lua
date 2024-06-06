@@ -1,5 +1,6 @@
 local keymap = vim.keymap
 
+local opts = { noremap = true, silent = true}
 -- Folds
 
 keymap.set("n", "<leader>m", ":NvimTreeFocus<CR>", {noremap = true,silent=true})

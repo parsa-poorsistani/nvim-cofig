@@ -13,6 +13,27 @@ local config = function()
 
 	local capabilities = cmp_nvim_lsp.default_capabilities()
 
+    -- ansiblels setup
+    lspconfig.ansiblels.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "yaml", "yml" },  -- Assuming Ansible uses YAML
+        settings = {
+            ansible = {
+                ansible = {
+                    path = "ansible",  -- Path to ansible executable
+                },
+                ansibleLint = {
+                    enabled = true,
+                    path = "ansible-lint",  -- Path to ansible-lint executable
+                },
+                python = {
+                    interpreterPath = "python",  -- Path to Python interpreter
+                },
+            },
+        },
+    })
+
  -- lua
 	lspconfig.lua_ls.setup({
 		capabilities = capabilities,
@@ -24,11 +45,7 @@ local config = function()
 					globals = { "vim" },
 				},
 				workspace = {
-					-- make language server aware of runtime files
-					library = {
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.stdpath("config") .. "/lua"] = true,
-					},
+          library = vim.api.nvim_get_runtime_file("", true),
 				},
 			},
 		},

@@ -20,6 +20,12 @@ M.on_attach = function(client, bufnr)
 	if client.name == "pyright" then
 		mapkey("<Leader>oi", "PyrightOrganizeImports", "n", opts)
 	end
+  vim.api.nvim_create_autocmd("CursorHold", {
+    buffer = bufnr,
+    callback = function()
+      vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+    end,
+  })
 end
 
 M.diagnostic_signs = { Error = " ", Warn = " ", Hint = "💡", Info = "" }

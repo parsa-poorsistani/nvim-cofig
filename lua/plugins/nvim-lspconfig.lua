@@ -1,5 +1,32 @@
+vim.diagnostic.config({
+  virtual_text = false,  -- Disable virtual text if you don't want inline errors
+  signs = true,          -- Keep showing diagnostic signs in the gutter
+  underline = true,
+  update_in_insert = false, -- Do not update diagnostics while typing
+  severity_sort = true,      -- Sort diagnostics by severity
+
+  -- Floating window configuration
+  float = {
+    show_header = true,
+    source = "always",   -- Show the source of the diagnostic
+    border = "rounded",  -- Rounded border for the floating window
+    focusable = false,   -- Do not allow focus on the floating window
+    prefix = function(diagnostic)
+      local diag_to_prefix = {
+        [vim.diagnostic.severity.ERROR] = "",
+        [vim.diagnostic.severity.WARN] = "",
+        [vim.diagnostic.severity.INFO] = "",
+        [vim.diagnostic.severity.HINT] = "💡",
+      }
+      return string.format(" %s ", diag_to_prefix[diagnostic.severity])
+    end,
+  },
+})
+
+
+
 local on_attach = require("util.lsp").on_attach
-local diagnostic_signs = require("util.lsp").diagnostic_signs
+--local diagnostic_signs = require("util.lsp").diagnostic_signs
 
 local config = function()
 	require("neoconf").setup({})

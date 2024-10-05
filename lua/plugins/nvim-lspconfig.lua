@@ -1,5 +1,5 @@
 vim.diagnostic.config({
-  virtual_text = false,  -- Disable virtual text if you don't want inline errors
+  virtual_text = true,  -- Disable virtual text if you don't want inline errors
   signs = true,          -- Keep showing diagnostic signs in the gutter
   underline = true,
   update_in_insert = false, -- Do not update diagnostics while typing
@@ -26,7 +26,7 @@ vim.diagnostic.config({
 
 
 local on_attach = require("util.lsp").on_attach
---local diagnostic_signs = require("util.lsp").diagnostic_signs
+local diagnostic_signs = require("util.lsp").diagnostic_signs
 
 local config = function()
 	require("neoconf").setup({})

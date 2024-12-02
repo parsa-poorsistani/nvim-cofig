@@ -5,7 +5,7 @@ local M = {}
 -- set keymaps on the active lsp server
 M.on_attach = function(client, bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr }
-  vim.lsp.inlay_hint(bufnr, true)
+  vim.lsp.inlay_hint.enable(true)
 	mapkey("<leader>fd", "Lspsaga finder", "n", opts) -- go to definition
 	mapkey("<leader>gd", "Lspsaga peek_definition", "n", opts) -- peak definition
 	mapkey("<leader>gD", "lua vim.lsp.buf.definition()<CR>", "n", opts) -- go to definition

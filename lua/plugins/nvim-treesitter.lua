@@ -25,6 +25,7 @@ local config = function()
 			"dockerfile",
 			"gitignore",
 			"python",
+      "proto",
 		},
 		auto_install = true,
 		highlight = {

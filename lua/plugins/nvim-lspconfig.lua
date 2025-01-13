@@ -1,3 +1,15 @@
+local lsp_defaults = {
+    flags = {
+        debounce_text_changes = 150,
+    },
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
+    workspace = {
+        didChangeWatchedFiles = {
+            dynamicRegistration = false,
+        },
+    }
+}
+
 vim.diagnostic.config({
   virtual_text = true,  -- Disable virtual text if you don't want inline errors
   signs = true,          -- Keep showing diagnostic signs in the gutter
@@ -77,13 +89,6 @@ local config = function()
 			},
 		},
 	})
-
-  --Docker-file
-  lspconfig.dockerls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = { "/usr/local/bin/docker-langserver" }
-  })
   -- YAML
   lspconfig.yamlls.setup({
     on_attach = on_attach,
@@ -108,6 +113,13 @@ local config = function()
 		on_attach = on_attach,
 		filetypes = { "json", "jsonc" },
 	})
+
+  lspconfig.buf_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { "bufls", "serve" },
+    filetypes = { "proto" },
+  })
 
 	-- python
 	lspconfig.pyright.setup({
@@ -151,6 +163,11 @@ local config = function()
 	lspconfig.dockerls.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
+		filetypes = { "dockerfile" },
+		root_dir = lspconfig.util.root_pattern("Dockerfile", "docker-compose.yml", "docker-compose.yaml"),
+		-- Add pattern matching for filenames
+		single_file_support = true,
+		settings = {},
 	})
 
 	-- C/C++
@@ -161,15 +178,8 @@ local config = function()
 			"clangd",
 			"--offset-encoding=utf-16",
 		},
+    filetypes = { "c", "cpp", "objc", "objcpp" },
 	})
-
-  -- python --
-  lspconfig.pyright.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = {"python"},
-  })
-
 
   -- Rust
   lspconfig.rust_analyzer.setup({
@@ -212,7 +222,7 @@ local config = function()
 
  	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
-	local flake8 = require("efmls-configs.linters.flake8")
+--	local flake8 = require("efmls-configs.linters.flake8")
 	local black = require("efmls-configs.formatters.black")
 	local eslint_d = require("efmls-configs.linters.eslint_d")
 	local prettier_d = require("efmls-configs.formatters.prettier_d")
@@ -247,6 +257,7 @@ local config = function()
 			"c",
 			"cpp",
       "yaml",
+      "proto",
 		},
 		init_options = {
 			documentFormatting = true,
@@ -272,6 +283,13 @@ local config = function()
 			},
 		},
 	})
+
+  vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = {"Dockerfile*", "dockerfile*"},
+    callback = function()
+        vim.bo.filetype = "dockerfile"
+    end,
+  })
 end
 
 return {

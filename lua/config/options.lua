@@ -35,3 +35,8 @@ opt.encoding = "UTF-8"
 
 opt.foldmethod = "syntax"
 opt.foldlevel = 99
+vim.o.winbar = "%{%v:lua.require('util.winbar').get_winbar()%}"
+vim.api.nvim_set_hl(0, "Winbar", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NvimTreeNormalNC", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { bg = "NONE" })

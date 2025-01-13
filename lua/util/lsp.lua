@@ -20,6 +20,9 @@ M.on_attach = function(client, bufnr)
 	if client.name == "pyright" then
 		mapkey("<Leader>oi", "PyrightOrganizeImports", "n", opts)
 	end
+  if client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
+  end
   vim.api.nvim_create_autocmd("CursorHold", {
     buffer = bufnr,
     callback = function()

@@ -5,6 +5,16 @@ local config = function()
     local telescope = require('telescope')
     telescope.setup({
       defaults = {
+        vimgrep_arguments = {
+        "rg",
+        "--color=never",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
+        "--smart-case",
+        "--fixed-strings",
+      },
         -- Default configuration for telescope goes here:
         -- config_key = value,
         mappings = {
@@ -23,6 +33,8 @@ local config = function()
                 theme = "dropdown",
                 previewer = false,
                 hidden = true,
+                follow = true,
+                find_command = { "fd", "--type", "f", "--hidden","--absolute-path", "--follow" },
             },
             live_grep = {
                 theme = "dropdown",
